@@ -1,24 +1,24 @@
-const dummy = (blogs) => {
+const dummy = () => {
   return 1
 }
 
 const totalLikes = (blogs) => {
-    let total = 0
-    for (let blog of blogs)
-        total += blog.likes || 0
-    return total
+  let total = 0
+  for (let blog of blogs)
+    total += blog.likes || 0
+  return total
 }
 
 const favoriteBlog = (blogs) => {
-    if(blogs.length === 0)
-        return null;
+  if(blogs.length === 0)
+    return null
 
-    let favorite = Blog[0];
-    for(let blog of blogs) {
-        if(blog.likes > favorite.likes)
-            favorite = blog;
-    }
-    return favorite;
+  let favorite = blogs[0]
+  for(let blog of blogs) {
+    if(blog.likes > favorite.likes)
+      favorite = blog
+  }
+  return favorite
 }
 
 module.exports = {
