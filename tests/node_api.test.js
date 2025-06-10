@@ -1,10 +1,12 @@
 const assert = require('node:assert')
-const { test, after, beforeEach } = require('node:test')
+const { test, after, beforeEach, describe } = require('node:test')
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
 const helper = require('./test_helper')
+const bcrypt = require('bcrypt')
 const Blog = require('../models/blog')
+const User = require('../models/blog')
 
 const api = supertest(app)
 
@@ -128,6 +130,35 @@ test('a blog\'s likes can be updated', async () => {
     .expect('Content-Type', /application\/json/)
 
   assert.strictEqual(response.body.likes, blogToUpdate.likes + 1)
+})
+
+describe('when there is initially one user in db', () => {
+  beforeEach(async () => {
+    await User.deleteMany({})
+
+    const passwordHash = await bcrypt.hash('sekret', 10)
+    const user = new User({ username: 'root', name: 'root', passwordHash })
+
+    await user.save()
+  })
+
+  // test('creation fails for invalid username and password', async () => {
+  //   const usersAtStart = await helper.usersInDb()
+
+  //   const newUser = {
+  //     username: 'hi',
+  //     name: 'Superuser',
+  //     password: 'hoiho'
+  //   }
+
+  //   const result = await api
+  //     .post('/api/users')
+  //     .send(newUser)
+  //     .expect(400)
+  //     .expect('Content-Type', /application\/json/)
+
+  //   const userAtEnd = await helper.usersInDb()
+  // })
 })
 
 

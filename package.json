@@ -20,9 +20,11 @@
   "homepage": "https://github.com/visruth-me/FSOblog_back#readme",
   "description": "",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.15.1"
   },
   "devDependencies": {
